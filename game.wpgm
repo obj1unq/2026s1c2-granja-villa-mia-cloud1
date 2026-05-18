@@ -20,6 +20,8 @@ program farmville {
     keyboard.o().onPressDo({ padme.sembrarTomaco() })
 	keyboard.r().onPressDo({ padme.regar() })
 	keyboard.c().onPressDo({ padme.cosechar() })
+	keyboard.v().onPressDo({ padme.vender()})
+	keyboard.space().onPressDo({padme.informar()})
  	
  	//  COMIENZA
 	game.start()

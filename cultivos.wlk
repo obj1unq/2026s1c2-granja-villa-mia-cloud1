@@ -15,6 +15,10 @@ class Maiz {
 	method estaLista() {
 		return estado.estaLista()
 	}
+
+	method valor() {
+		return 150
+	}
 }
 
 
@@ -37,6 +41,10 @@ class Trigo {
 		return evolucion >= 2
 	}
 
+	method valor() {
+		return (evolucion - 1) * 100
+	}
+
 }
 
 
@@ -55,8 +63,11 @@ class Tomaco {
         }
     }
 
-		method estaLista() {
+	method estaLista() {
 			return true
+	}
+	method valor() {
+		return 80
 	}
 }	
 

@@ -5,6 +5,7 @@ object padme {
 	var property position = game.center()
 	const property image = "fplayer.png"
 	const plantasCosechadas = []
+	var dinero = 0
 
 
 	method sembrarMaiz() {
@@ -38,6 +39,23 @@ object padme {
     
 	}
 
+	method vender() {
+		if(not plantasCosechadas.isEmpty()) {
+			dinero = dinero + self.valorPlantasCosechadas()
+			plantasCosechadas.clear()
+		}
+	}
+
+	method informar() {
+		game.say( self, "Tengo " + dinero.toString() + " monedas, y " + plantasCosechadas.size().toString() + " plantas para vender")
+	}
+
+	method valorPlantasCosechadas() {
+		return plantasCosechadas.sum( {planta => planta.valor()})
+	}
+
+	
+
 	method validarSiHayPlantaParaRegar() {
 		if( game.colliders(self).isEmpty()) {
 			self.error("No tengo nada para regar")
@@ -51,7 +69,7 @@ object padme {
 	}
 
 	method validarSiHayPlantaParaCosechar() {
-		if( not game.colliders(self).isEmpty()) {
+		if( game.colliders(self).isEmpty()) {
 			self.error("No tengo nada para cosechar")
 		}
 	}
