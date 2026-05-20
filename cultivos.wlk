@@ -2,14 +2,13 @@ import wollok.game.*
 
 class Maiz {
 	var property position
-	var estado = bebe
+	var estado = maizBebe
 
 	method image() {
 		return estado.image()
 	}
-
 	method serRegada() {
-		estado = adulto
+		estado = maizAdulto
 	}
 
 	method estaLista() {
@@ -72,7 +71,7 @@ class Tomaco {
 }	
 
 
-object bebe {
+object maizBebe {
 	method image() {
 		return "corn_baby.png"
 	}
@@ -82,7 +81,7 @@ object bebe {
 	}
 }
 
-object adulto {
+object maizAdulto {
 	method image() {
 		return "corn_adult.png"
 	}

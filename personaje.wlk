@@ -8,19 +8,9 @@ object padme {
 	var dinero = 0
 
 
-	method sembrarMaiz() {
-		self.validarSiHayPlanta() 
-		game.addVisual(new Maiz(position = self.position()))
-	}
-
-	method sembrarTrigo() {
-		self.validarSiHayPlanta() 
-		game.addVisual(new Trigo(position = self.position()))
-	}
-
-	method sembrarTomaco() {
-		self.validarSiHayPlanta() 
-		game.addVisual(new Tomaco(position = self.position()))
+	method sembrar(planta) {
+		self.validarSiHayPlanta()
+		game.addVisual(planta)
 	}
 
 	method regar() {
