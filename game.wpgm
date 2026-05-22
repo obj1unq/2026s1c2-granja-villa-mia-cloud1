@@ -22,6 +22,7 @@ program farmville {
 	keyboard.c().onPressDo({ padme.cosechar() })
 	keyboard.v().onPressDo({ padme.vender()})
 	keyboard.space().onPressDo({padme.informar()})
+	keyboard.a().onPressDo({ padme.dejarAspersor() })
  	
  	//  COMIENZA
 	game.start()

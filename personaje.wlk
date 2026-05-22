@@ -10,14 +10,15 @@ object padme {
 
 	method sembrar(planta) {
 		self.validarSiHayPlanta()
-		game.addVisual(planta)
+		planta.serSembrada()
 	}
 
 	method regar() {
-		const planta = game.uniqueCollider(self)
 		self.validarSiHayPlantaParaRegar() 
+		const planta = game.uniqueCollider(self)
         planta.serRegada()
 	}
+
 
 	method cosechar() {
 		self.validarSiHayPlantaParaCosechar() 
@@ -29,15 +30,30 @@ object padme {
     
 	}
 
+	method plantasCosechadas() { return plantasCosechadas }
+
 	method vender() {
-		if(not plantasCosechadas.isEmpty()) {
-			dinero = dinero + self.valorPlantasCosechadas()
-			plantasCosechadas.clear()
-		}
+		self.validarSiTienePlantas()
+		self.validarSiEstaEnMercado()
+		const mercado = game.uniqueCollider(self)
+		const totalACobrar = self.valorPlantasCosechadas()
+		mercado.comprar(plantasCosechadas, totalACobrar)
+		dinero = dinero + totalACobrar
+		plantasCosechadas.clear()
 	}
 
 	method informar() {
 		game.say( self, "Tengo " + dinero.toString() + " monedas, y " + plantasCosechadas.size().toString() + " plantas para vender")
+	}
+	
+	method serRegada() {
+		
+	}
+
+	method dejarAspersor() {
+		const aspersor = new Aspersor(position = position)
+		aspersor.colocarAspersor()
+		aspersor.iniciarRiego()
 	}
 
 	method valorPlantasCosechadas() {
@@ -64,5 +80,16 @@ object padme {
 		}
 	}
 
+	method validarSiTienePlantas() {
+		if( plantasCosechadas.isEmpty()) {
+			self.error("No tengo plantas para vender")
+		}
+	}
+
+	method validarSiEstaEnMercado() {
+        if (game.colliders(self).isEmpty()) {
+            self.error("No hay ningun mercado aca")
+        }
+    }
 
 }

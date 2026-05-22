@@ -1,4 +1,5 @@
 import wollok.game.*
+import estados.*
 
 class Maiz {
 	var property position
@@ -6,6 +7,10 @@ class Maiz {
 
 	method image() {
 		return estado.image()
+	}
+
+	method serSembrada() {
+		game.addVisual(self)
 	}
 	method serRegada() {
 		estado = maizAdulto
@@ -23,25 +28,23 @@ class Maiz {
 
 class Trigo {
 	var property position
-	var evolucion = 0
+	var evolucion = trigoEvolucion1
 
 	method image() {
-		return "wheat_" + evolucion.toString() + ".png"
+		return evolucion.image()
 	}
-
+	method serSembrada() {
+		game.addVisual(self)
+	}
 	method serRegada() {
-		if(evolucion == 3) {
-			evolucion = 0 
-		} else {
-			evolucion = evolucion + 1
-		}
+		evolucion = evolucion.siguiente()
 	}
 	method estaLista() {
-		return evolucion >= 2
+		return evolucion.estaLista()
 	}
 
 	method valor() {
-		return (evolucion - 1) * 100
+		return evolucion.valor()
 	}
 
 }
@@ -52,6 +55,10 @@ class Tomaco {
 
 	method image() {
 		return "tomaco.png"
+	}
+
+	method serSembrada() {
+		game.addVisual(self)
 	}
 
 	method serRegada() {
@@ -70,23 +77,55 @@ class Tomaco {
 	}
 }	
 
+class Aspersor {
+	var property position
 
-object maizBebe {
 	method image() {
-		return "corn_baby.png"
+		return "aspersor.png"
+	} 
+
+	method colocarAspersor() {
+		game.addVisual(self)
+	} 
+
+	method iniciarRiego() {
+		game.onTick(1000, "regar_" + position.x().toString() + "_" + position.y().toString() , { self.regar() })
 	}
 
-	method estaLista() {
-		return false 
-	}
+	method regar() {
+  		const parcelasVecinas = [
+    game.at(position.x() + 1, position.y()),
+    game.at(position.x() - 1, position.y()),
+    game.at(position.x(), position.y() + 1),
+    game.at(position.x(), position.y() - 1)
+  ]
+  	parcelasVecinas.forEach({ parcela => game.getObjectsIn(parcela).forEach({ p => p.serRegada() })
+  })
+}
 }
 
-object maizAdulto {
+class Mercado {
+	var property position 
+	var property monedas = 0
+	const mercaderiaPorVender = []
+
 	method image() {
-		return "corn_adult.png"
+		return "mercado.png" 
 	}
 
-	method estaLista() {
-		return true
+	method puedeComprar(precio) {
+		return monedas  >= precio
+	}
+
+	method comprar(mercaderia, dinero) {
+		self.validarSiTieneDinero(dinero)
+		monedas = monedas - dinero
+		mercaderiaPorVender.addAll(mercaderia)
+	}
+
+	method validarSiTieneDinero(dinero) {
+		if (not self.puedeComprar(dinero)) {
+			self.error("No tiene dinero suficiente")
+		}
 	}
 }
