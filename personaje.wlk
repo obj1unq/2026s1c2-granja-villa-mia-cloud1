@@ -5,7 +5,7 @@ object padme {
 	var property position = game.center()
 	const property image = "fplayer.png"
 	const plantasCosechadas = []
-	var dinero = 0
+	var property dinero = 0
 
 
 	method sembrar(planta) {

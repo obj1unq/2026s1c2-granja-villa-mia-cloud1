@@ -64,7 +64,7 @@ object trigoEvolucion2 {
 
 object trigoEvolucion3 {
     method image() { 
-		return "wheat_2.png" 
+		return "wheat_3.png" 
 	}
     method siguiente() { 
 		return trigoEvolucion0 

@@ -28,10 +28,14 @@ class Maiz {
 
 class Trigo {
 	var property position
-	var evolucion = trigoEvolucion1
+	var evolucion = trigoEvolucion0
 
 	method image() {
 		return evolucion.image()
+	}
+
+	method evolucion() {
+		return evolucion
 	}
 	method serSembrada() {
 		game.addVisual(self)
