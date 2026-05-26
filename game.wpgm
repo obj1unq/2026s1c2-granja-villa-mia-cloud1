@@ -10,8 +10,19 @@ program farmville {
 	game.ground("ground.png")
 
 	//  VISUALES
- 	game.addVisualCharacter(personaje)
- 	game.addVisual(new Maiz()) // Se agrega a modo de prueba
+ 	game.addVisualCharacter(padme)
+ 	//game.addVisual(new Maiz()) // Se agrega a modo de prueba
+
+	// TECLAS
+
+	keyboard.m().onPressDo({ padme.sembrar( new Maiz(position = padme.position()) ) })
+	keyboard.t().onPressDo({ padme.sembrar( new Trigo(position = padme.position())) })
+    keyboard.o().onPressDo({ padme.sembrar(new Tomaco(position = padme.position())) })
+	keyboard.r().onPressDo({ padme.regar() })
+	keyboard.c().onPressDo({ padme.cosechar() })
+	keyboard.v().onPressDo({ padme.vender()})
+	keyboard.space().onPressDo({padme.informar()})
+	keyboard.a().onPressDo({ padme.dejarAspersor() })
  	
  	//  COMIENZA
 	game.start()
